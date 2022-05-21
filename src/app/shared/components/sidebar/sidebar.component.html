@@ -1,5 +1,7 @@
 <div class="main-header-left d-none d-lg-block">
-    <div class="logo-wrapper"><a><img class="blur-up lazyloaded" [src]="logoImage" alt=""></a></div>
+    <div class="logo-wrapper">
+        <!-- <a><img class="blur-up lazyloaded" [src]="logoImage" alt=""></a> -->
+    </div>
 </div>
 <div class="sidebar custom-scrollbar">
     <div class="sidebar-user text-center">
@@ -9,38 +11,36 @@
         <p> {{emailId}} </p>
     </div>
     <ul class="sidebar-menu">
-        <li Class="active">
+        <li *ngFor="let menuItem of menuItems" [ngClass]="{active :menuItem.active}">
             <!-- 1st Level Menu -->
             <!-- Sub menu -->
-            <a href="javascript:void(0)" class="sidebar-header">
-                Icon Here <span> Menu Title </span>
-                <i class="fa fa-angle-right pull-right"></i>
+            <a href="javascript:void(0)" class="sidebar-header" *ngIf="menuItem.type === 'sub'" (click)="toggleNavActive(menuItem)">
+                <app-feather-icon [icon]="menuItem.icon"></app-feather-icon>  <span> {{menuItem.title}} </span>
+                <i class="fa fa-angle-right pull-right" *ngIf="menuItem.children"></i>
             </a>
             <!-- Link menu -->
-            <a class="sidebar-header">
-                Icon Here <span> Menu Title </span>
-                <i class="fa fa-angle-right pull-right"></i>
+            <a class="sidebar-header"  *ngIf="menuItem.type === 'link'" [routerLink]="menuItem.path" routerLinkActive="active">
+               <app-feather-icon [icon]="menuItem.icon"></app-feather-icon> <span>  {{menuItem.title}}</span>
             </a>
             <!-- 2nd Level Menu -->
-            <ul class="sidebar-submenu">
-                <li Class="active">
+            <ul class="sidebar-submenu"  *ngIf="menuItem.children">
+                <li *ngFor="let childrenItem of menuItem.children" [ngClass]="{active :menuItem.active}">
                     <!-- Sub -->
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i><span> Menu Title </span>
-                        <i class="fa fa-angle-down pull-right"></i>
+                    <a href="javascript:void(0)" class="sidebar-header" *ngIf="childrenItem.type === 'sub'" (click)="toggleNavActive(menuItem)">
+                        <app-feather-icon [icon]="childrenItem.icon"></app-feather-icon>  <span> {{childrenItem.title}} </span>
+                        <i class="fa fa-angle-right pull-right" *ngIf="childrenItem.children"></i>
                     </a>
-                    <!-- Link -->
-                    <a>
-                        <i class="fa fa-circle"></i><span> Menu Title </span>
-                        <i class="fa fa-angle-down pull-right"></i>
+                    <!-- Link menu -->
+                    <a class="sidebar-header"  *ngIf="childrenItem.type === 'link'" [routerLink]="childrenItem.path" routerLinkActive="active">
+                       <app-feather-icon [icon]="childrenItem.icon"></app-feather-icon> <span>  {{childrenItem.title}}</span>
                     </a>
                     <!-- 3rd Level Menu -->
-                    <ul class="sidebar-submenu">
-                        <li>
+                    <ul class="sidebar-submenu" *ngIf="childrenItem.children">
+                        <li *ngFor="let childrenItems of childrenItem.children" [ngClass]="{active :menuItem.active}">
                             <!-- Link -->
-                            <a>
-                                <i class="fa fa-circle"></i><span> Menu Title </span>
-                            </a>
+                            <a class="sidebar-header"  *ngIf="childrenItems.type === 'link'" [routerLink]="childrenItems.path" routerLinkActive="active">
+                                <app-feather-icon [icon]="childrenItems.icon"></app-feather-icon> <span>  {{childrenItems.title}}</span>
+                             </a>
                         </li>
                     </ul>
                 </li>

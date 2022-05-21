@@ -18,5 +18,7 @@ menuItems:Menu[] = []
   ngOnInit(): void {
     this.menuItems = this._menuService.MENUITEMS;
   }
-
+toggleNavActive(item :Menu){
+item.active = !item.active
+}
 }

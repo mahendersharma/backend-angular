@@ -1,1 +1,17 @@
-<p>login works!</p>
+<ul ngbNav #nav="ngbNav" class="nav-tabs" activeId="Registrationid">
+    <li ngbNavItem="logintab">
+      <a ngbNavLink>Login</a>
+      <ng-template ngbNavContent>
+          Login
+        </ng-template>
+    </li>
+    <li ngbNavItem="Registrationid">
+      <a ngbNavLink>Registration</a>
+      <ng-template ngbNavContent>
+          Registration
+        </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+  <button type="button" (click)="showlogin()">showlogin</button>
+  <button type="button" (click)="showRegistration()">showRegistration</button>
